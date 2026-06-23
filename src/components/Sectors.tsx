@@ -109,7 +109,7 @@ export default function Sectors() {
   };
 
   return (
-    <section className="py-32 bg-transparent relative border-b border-white/5">
+    <section className="py-32 bg-transparent relative border-b border-white/5 overflow-hidden">
       {/* Radial lighting blur */}
       <div className="absolute top-1/2 left-0 w-[500px] h-[500px] bg-[#FF5665]/5 blur-[120px] rounded-full point-events-none" />
 
