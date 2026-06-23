@@ -30,7 +30,7 @@ export default function Services() {
   ];
 
   return (
-    <section className="py-32 bg-transparent relative border-b border-white/5">
+    <section className="py-32 bg-transparent relative border-b border-white/5 overflow-hidden">
       <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1200px] h-[1200px] bg-[#0F172A]/10 blur-[150px] rounded-full" />
       </div>
