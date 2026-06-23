@@ -2,7 +2,6 @@ import { motion, AnimatePresence } from 'motion/react';
 
 interface EarthCanvasProps {
   activeSection: string;
-  scrollProgress: number;
 }
 
 // Spectacular, authentic, extremely high-quality photography representing each section's scenario
@@ -57,7 +56,7 @@ export const backgroundScenes: Record<string, { image: string; title: string; su
   }
 };
 
-export default function EarthCanvas({ activeSection, scrollProgress }: EarthCanvasProps) {
+export default function EarthCanvas({ activeSection }: EarthCanvasProps) {
   // Graceful fallback helper in case activeSection is invalid
   const currentScene = backgroundScenes[activeSection] || backgroundScenes.inicio;
 
@@ -65,13 +64,20 @@ export default function EarthCanvas({ activeSection, scrollProgress }: EarthCanv
     <div className="absolute inset-0 z-0 overflow-hidden bg-[#040609]">
       
       {/* 1. SEAMLESS HARDWARE-ACCELERATED TRANSITIONS WITH ZERO RENDERING REFLOWS */}
-      <div 
-        className="absolute inset-0 z-0 bg-cover bg-center transition-all duration-1000 ease-in-out opacity-35"
-        style={{ 
-          backgroundImage: `url(${currentScene.image})`,
-          transform: 'translateZ(0)' // Forces GPU acceleration
-        }}
-      />
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={activeSection}
+          initial={{ opacity: 0, scale: 1.02 }}
+          animate={{ opacity: 0.35, scale: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 1.0, ease: "easeOut" }}
+          className="absolute inset-0 bg-cover bg-center"
+          style={{ 
+            backgroundImage: `url(${currentScene.image})`,
+            transform: 'translateZ(0)'
+          }}
+        />
+      </AnimatePresence>
 
       {/* Real-time Cinematic Digital HUD Overlay info tags in the background border */}
       <div className="absolute bottom-8 left-8 z-10 font-mono text-[9px] text-[#FF5665]/50 tracking-[0.15em] hidden sm:block uppercase">
