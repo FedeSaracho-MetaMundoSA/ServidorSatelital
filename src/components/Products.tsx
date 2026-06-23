@@ -93,7 +93,7 @@ export default function Products() {
   };
 
   return (
-    <section className="py-28 bg-transparent relative border-b border-white/5">
+    <section className="py-28 bg-transparent relative border-b border-white/5 overflow-hidden">
       {/* Dynamic graphic lighting */}
       <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-emerald-500/5 blur-[160px] rounded-full pointer-events-none" />
       <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-[#FF5665]/5 blur-[150px] rounded-full pointer-events-none" />
