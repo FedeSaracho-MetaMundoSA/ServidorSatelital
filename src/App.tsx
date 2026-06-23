@@ -38,9 +38,7 @@ declare global {
 
 export default function App() {
   const [loading, setLoading] = useState(true);
-  const [scrollProgress, setScrollProgress] = useState(0);
   const [activeSection, setActiveSection] = useState('inicio');
-  const [isPastHero, setIsPastHero] = useState(false);
 
   const [isWhatsAppOpen, setIsWhatsAppOpen] = useState(false);
   const [whatsAppInitialCategory, setWhatsAppInitialCategory] = useState<string | undefined>(undefined);
@@ -228,30 +226,7 @@ export default function App() {
     return () => observer.disconnect();
   }, [loading, currentRoute]);
 
-  // Global scroll tracker for background transparency
-  useEffect(() => {
-    if (loading) return;
-
-    const handleGlobalScroll = () => {
-      const scrollY = window.scrollY !== undefined 
-        ? window.scrollY 
-        : (window.pageYOffset !== undefined 
-            ? window.pageYOffset 
-            : ((document.documentElement || document.body.parentNode || document.body) as HTMLElement).scrollTop);
-            
-      const vh = window.innerHeight;
-      const heroScrollHeight = vh * 0.9;
-
-      const progress = Math.max(0, Math.min(1, scrollY / (heroScrollHeight || 1)));
-      setScrollProgress(progress);
-
-      setIsPastHero(scrollY > heroScrollHeight);
-    };
-
-    window.addEventListener('scroll', handleGlobalScroll, { passive: true });
-    handleGlobalScroll();
-    return () => window.removeEventListener('scroll', handleGlobalScroll);
-  }, [loading]);
+  // Removed global scroll listener to prevent performance issues and mobile layout breaking
 
   const simplePreloaderFallback = (
     <div className="fixed inset-0 z-[9999] bg-[#06080c] flex flex-col justify-center items-center text-center p-8">
@@ -296,12 +271,12 @@ export default function App() {
           {/* Universal Galactic Map/Earth Environment */}
           <div className="fixed inset-0 z-0 pointer-events-none">
             <ErrorBoundary fallback={<div className="absolute inset-0 bg-[#06080c]" />}>
-              <EarthCanvas activeSection={currentRoute === 'home' ? activeSection : 'productos'} scrollProgress={scrollProgress} />
+              <EarthCanvas activeSection={currentRoute === 'home' ? activeSection : 'productos'} />
             </ErrorBoundary>
             <div 
               className="absolute inset-0 bg-[#040608] transition-all duration-700 ease-out pointer-events-none"
               style={{ 
-                opacity: currentRoute !== 'home' || isPastHero ? 0.88 : 0.35
+                opacity: currentRoute !== 'home' || activeSection !== 'inicio' ? 0.88 : 0.35
               }} 
             />
           </div>
@@ -552,7 +527,7 @@ export default function App() {
               <main className="relative z-10 overflow-x-hidden bg-transparent">
                 {/* Hero Section */}
                 <div id="inicio">
-                  <Hero activeScene={0} scrollProgress={scrollProgress} />
+                  <Hero activeScene={0} />
                 </div>
                 
                 {/* About / Institution Section */}
