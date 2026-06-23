@@ -266,7 +266,7 @@ export default function App() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1.2 }}
-          className="bg-bg-base text-white min-h-screen selection:bg-[#FF5665]/30 selection:text-[#FF5665] font-sans relative w-full overflow-x-hidden"
+          className="bg-bg-base text-white min-h-screen selection:bg-[#FF5665]/30 selection:text-[#FF5665] font-sans relative w-full"
         >
           {/* Universal Galactic Map/Earth Environment */}
           <div className="fixed inset-0 z-0 pointer-events-none">
@@ -524,7 +524,7 @@ export default function App() {
                 </div>
               </div>
 
-              <main className="relative z-10 overflow-x-hidden bg-transparent">
+              <main className="relative z-10 bg-transparent">
                 {/* Hero Section */}
                 <div id="inicio">
                   <Hero activeScene={0} />
